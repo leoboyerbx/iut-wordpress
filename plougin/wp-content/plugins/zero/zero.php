@@ -9,16 +9,6 @@ Author URI: http://leoboyer.fr
 License: GPL2
 */
 
-class Zero_Plugin {
-    public function __construct() {
-        include_once plugin_dir_path(  __FILE__ ).'/Zero_Page_Title.php';
-        include_once plugin_dir_path(  __FILE__ ).'/Zero_Newsletter.php';
-
-
-//        new Zero_Page_Title();
-        new Zero_Newsletter();
-    }
-}
-
+include_once __DIR__.'/Zero_Plugin.php';
 
 new Zero_Plugin();
