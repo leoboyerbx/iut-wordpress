@@ -11,4 +11,7 @@ License: GPL2
 
 include_once __DIR__.'/Zero_Plugin.php';
 
+register_activation_hook(__FILE__, ['Zero_Newsletter', 'install']);
+register_uninstall_hook(__FILE__, ['Zero_Newsletter', 'uninstall']);
+
 new Zero_Plugin();
