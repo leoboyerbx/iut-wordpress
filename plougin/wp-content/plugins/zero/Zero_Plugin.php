@@ -3,11 +3,13 @@ class Zero_Plugin {
     public function __construct() {
         include_once __DIR__.'/Zero_Page_Title.php';
         include_once __DIR__.'/Zero_Newsletter.php';
+        include_once __DIR__.'/Zero_Recent.php';
 
         add_action('admin_menu', [$this, 'add_admin_menu'], 10);
 
         new Zero_Page_Title();
         new Zero_Newsletter();
+        new Zero_Recent();
     }
 
     public function add_admin_menu () {
