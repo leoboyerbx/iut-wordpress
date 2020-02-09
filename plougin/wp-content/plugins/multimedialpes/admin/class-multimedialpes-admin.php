@@ -198,11 +198,37 @@ dashicons-chart-area');
         add_submenu_page('multimedialpes', 'Concours', 'Concours', 'manage_options', 'edit-tags.php?taxonomy=concours&post_type=candidat', '');
 
         add_submenu_page('multimedialpes', 'Candidats', 'Candidats', 'manage_options', 'edit.php?post_type=candidat', '');
-
     }
 
-    public function apply_menu_filters() {
+    public function apply_menu_filters($parent_file) {
+        global $current_screen,$submenu_file;
 
+        $base = $current_screen->base;
+
+        $action = $current_screen->action;
+
+        $post_type = $current_screen->post_type;
+
+        $taxonomy = $current_screen->taxonomy;
+
+        if ($taxonomy == 'concours'){
+
+            $parent_file = 'multimedialpes';
+
+            $submenu_file = 'edit-tags.php?taxonomy='.'concours'.'&post_type='.'candidat';
+
+        }
+
+        elseif ($post_type == 'candidat') {
+
+            $parent_file = 'multimedialpes';
+
+            $submenu_file = 'edit.php?post_type='.'candidat';
+
+        }
+
+
+        return $parent_file;
     }
 
     public function render_html () {
