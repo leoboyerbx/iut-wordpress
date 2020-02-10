@@ -8,11 +8,6 @@
 
 	$(document).ready(() => {
 		if($('#new_candidat_trigger').length) {
-			$('.meta-box-sortables').sortable({
-				disabled: true
-			});
-
-			$('.postbox .hndle').css('cursor', 'pointer');
 			// Si on est sur l'ajout d'un candidat
 			let box_types = []
 			$('#candidat_type option').each(function () {

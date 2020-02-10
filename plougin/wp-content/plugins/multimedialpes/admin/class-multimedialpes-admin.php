@@ -263,27 +263,78 @@ class Multimedialpes_Admin {
 
         // Box audiovisuel
         $av_info = new_cmb2_box( array(
-            'id'               => $prefix.'details_audiovisuel',
-            'title'            => esc_html__( 'Détails création audiovisuelle', 'cmb2' ), // Doesn't output for term boxes
+            'id'               => $prefix . 'details_audiovisuel',
+            'title'            => esc_html__( 'Détails : audiovisuel', 'cmb2' ),
             'object_types'     => array( 'candidat' ),
             'priority'  => 'low'
         ) );
 
         $av_info->add_field( array(
-            'id'    => $prefix.'info_audiovisuel',
-            'type' => 'hidden',
-            'classes' => 'conditionnal-attributes',
-            'attributes' => array(
-                'data-conditional-id'    => $prefix . 'type',
-                'data-conditional-value' => 'audiovisuel',
-            ),
+            'name'     => 'URL (YouTube, SoundCloud, ...)',
+            'id'       => $prefix . 'av_url',
+            'type'     => 'oembed',
         ) );
 
         $av_info->add_field( array(
-            'name'           => 'Test',
-            'desc'           => 'Sélectionner le concours où vous voulez inscrire la création',
-            'id'             => $prefix.'concours_select',
-            'type'           => 'text'
+            'name'     => 'Catégorie',
+            'id'       => $prefix . 'av_categorie',
+            'type'     => 'select',
+            'options' => array(
+                'reportage' => __('Reportage', 'cmb2'),
+                'fiction' => __('Fiction', 'cmb2'),
+                'motion-design' => __('Motion-design', 'cmb2'),
+                'other' => __('Autre', 'cmb2'),
+            ),
+        ) );
+        $av_info->add_field( array(
+            'name'    => 'Description du projet',
+            'desc'    => 'Expliquez votre démarche, les choses à savoir pour le projet, etc...',
+            'id'      => $prefix.'audiovisuel_description',
+            'type'    => 'wysiwyg',
+            'options' => array(),
+        ) );
+
+        //Web
+        $web_info = new_cmb2_box( array(
+            'id'               => $prefix . 'details_web',
+            'title'            => esc_html__( 'Détails : web', 'cmb2' ),
+            'object_types'     => array( 'candidat' ),
+            'priority'  => 'low'
+        ) );
+
+        $web_info->add_field( array(
+            'name'			   => 'URL du site',
+            'id'               => $prefix . 'web_url',
+            'type'  		   => 'text_url',
+        ) );
+
+        $web_info->add_field( array(
+            'name'			   => 'Type de site',
+            'id'               => $prefix . 'web_type',
+            'type'  		   => 'select',
+            'options' => array(
+                'portfolio' => __('Portfolio', 'cmb2'),
+                'vitrine' => __('Vitrine', 'cmb2'),
+                'e-commerce' => __('E-commerce', 'cmb2'),
+                'other' => __('Autre', 'cmb2'),
+            ),
+        ) );
+
+        $web_info->add_field( array(
+            'id'               => $prefix . 'web_dynamique',
+            'type'  		   => 'radio_inline',
+            'name'             => 'Le site est...',
+            'options'          => array(
+                'statique' => __( 'Statique', 'cmb2' ),
+                'dynamique' => __( 'Dynamique', 'cmb2' ),
+            ),
+        ) );
+        $web_info->add_field( array(
+            'name'    => 'Description du projet',
+            'desc'    => 'Expliquez votre démarche, les choses à savoir pour le projet, etc...',
+            'id'      => $prefix.'web_description',
+            'type'    => 'wysiwyg',
+            'options' => array(),
         ) );
 
         // Graphisme
@@ -327,6 +378,20 @@ class Multimedialpes_Admin {
             'name'    => 'Description du projet',
             'desc'    => 'Expliquez votre démarche, les choses à savoir pour le projet, etc...',
             'id'      => $prefix.'graphisme_description',
+            'type'    => 'wysiwyg',
+            'options' => array(),
+        ) );
+
+        $autre_info = new_cmb2_box( array(
+            'id'               => $prefix.'details_other',
+            'title'            => esc_html__( 'Détails', 'cmb2' ), // Doesn't output for term boxes
+            'object_types'     => array( 'candidat' ),
+            'priority'  => 'low'
+        ) );
+        $autre_info->add_field( array(
+            'name'    => 'Description du projet',
+            'desc'    => 'Expliquez votre démarche, les choses à savoir pour le projet, etc...',
+            'id'      => $prefix.'other_description',
             'type'    => 'wysiwyg',
             'options' => array(),
         ) );
@@ -427,6 +492,16 @@ dashicons-chart-area');
 
 
         return $parent_file;
+    }
+
+    public function register_concours_columns ($columns) {
+        $new_columns_before = array(
+            'id' => esc_html__( 'Id', 'text_domain' ),
+        );
+        $new_columns_after= array(
+            'shortcode' => esc_html__( 'Shortcode', 'text_domain' ),
+        );
+        return array_merge($new_columns_before, $columns, $new_columns_after);
     }
 
     public function render_html () {
