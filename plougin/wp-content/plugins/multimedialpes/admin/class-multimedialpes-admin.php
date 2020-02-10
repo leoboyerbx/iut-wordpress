@@ -97,35 +97,34 @@ class Multimedialpes_Admin {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/multimedialpes-admin.js', array( 'jquery' ), $this->version, false );
-
 	}
 
 	public function create_candidat_cpt() {
 
         $labels = array(
-            'name' => _x( 'Candidats', 'Post Type General Name', 'textdomain' ),
-            'singular_name' => _x( 'Candidat', 'Post Type Singular Name', 'textdomain' ),
-            'menu_name' => _x( 'Candidats', 'Admin Menu text', 'textdomain' ),
-            'name_admin_bar' => _x( 'Candidat', 'Add New on Toolbar', 'textdomain' ),
-            'archives' => __( 'Archives Candidat', 'textdomain' ),
+            'name' => _x( 'Candidatures', 'Candidatures au concours', 'textdomain' ),
+            'singular_name' => _x( 'Candidature', 'Candidature au concours', 'textdomain' ),
+            'menu_name' => _x( 'Candidatures', 'Candidatures', 'textdomain' ),
+            'name_admin_bar' => _x( 'Candidatures', 'Add New on Toolbar', 'textdomain' ),
+            'archives' => __( 'Archives Candidatures', 'textdomain' ),
             'attributes' => __( 'Attributs Candidat', 'textdomain' ),
             'parent_item_colon' => __( 'Parents Candidat:', 'textdomain' ),
-            'all_items' => __( 'Tous Candidats', 'textdomain' ),
-            'add_new_item' => __( 'Ajouter nouvel Candidat', 'textdomain' ),
+            'all_items' => __( 'Toutes Candidatures', 'textdomain' ),
+            'add_new_item' => __( 'Ajouter nouvelle candidature', 'textdomain' ),
             'add_new' => __( 'Ajouter', 'textdomain' ),
             'new_item' => __( 'Nouvel Candidat', 'textdomain' ),
-            'edit_item' => __( 'Modifier Candidat', 'textdomain' ),
-            'update_item' => __( 'Mettre à jour Candidat', 'textdomain' ),
-            'view_item' => __( 'Voir Candidat', 'textdomain' ),
-            'view_items' => __( 'Voir Candidats', 'textdomain' ),
-            'search_items' => __( 'Rechercher dans les Candidat', 'textdomain' ),
-            'not_found' => __( 'Aucun Candidattrouvé.', 'textdomain' ),
-            'not_found_in_trash' => __( 'Aucun Candidattrouvé dans la corbeille.', 'textdomain' ),
+            'edit_item' => __( 'Modifier Candidature', 'textdomain' ),
+            'update_item' => __( 'Mettre à jour Candidature', 'textdomain' ),
+            'view_item' => __( 'Voir Candidature', 'textdomain' ),
+            'view_items' => __( 'Voir Candidatures', 'textdomain' ),
+            'search_items' => __( 'Rechercher dans les Candidatures', 'textdomain' ),
+            'not_found' => __( 'Aucune Candidature trouvé.', 'textdomain' ),
+            'not_found_in_trash' => __( 'Aucune Candidature trouvé dans la corbeille.', 'textdomain' ),
             'featured_image' => __( 'Image mise en avant', 'textdomain' ),
             'set_featured_image' => __( 'Définir l’image mise en avant', 'textdomain' ),
             'remove_featured_image' => __( 'Supprimer l’image mise en avant', 'textdomain' ),
             'use_featured_image' => __( 'Utiliser comme image mise en avant', 'textdomain' ),
-            'insert_into_item' => __( 'Insérer dans Candidat', 'textdomain' ),
+            'insert_into_item' => __( 'Insérer dans Candidature', 'textdomain' ),
             'uploaded_to_this_item' => __( 'Téléversé sur cet Candidat', 'textdomain' ),
             'items_list' => __( 'Liste Candidats', 'textdomain' ),
             'items_list_navigation' => __( 'Navigation de la liste Candidats', 'textdomain' ),
@@ -189,53 +188,152 @@ class Multimedialpes_Admin {
 
     }
 
-    function add_admin_menu() {
-	    add_menu_page('Multimédialpes', 'Multimédialpes', 'manage_options', 'multimedialpes', '', '
-dashicons-chart-area');
+    public function create_candidat_metaboxes () {
+        $prefix = 'candidat_';
 
-	    add_submenu_page('multimedialpes', 'Le plugin de Multimédialpes !', 'Aperçu', 'manage_options', 'multimedialpes', [$this, 'render_html']);
+        /**
+         * Metabox to add fields to categories and tags
+         */
+        $general_info = new_cmb2_box( array(
+            'id'               => $prefix . 'edit',
+            'title'            => esc_html__( 'Infos sur la candidature', 'cmb2' ), // Doesn't output for term boxes
+            'object_types'     => array( 'candidat' ), // Tells CMB2 to use term_meta vs post_meta
+        ) );
+        $general_info->add_field( array(
+            'id'   => 'new_candidat_trigger',
+            'type' => 'hidden',
+        ) );
 
-        add_submenu_page('multimedialpes', 'Concours', 'Concours', 'manage_options', 'edit-tags.php?taxonomy=concours&post_type=candidat', '');
+        $general_info->add_field( array(
+            'name'           => 'Candidature au concours',
+            'desc'           => 'Sélectionner le concours où vous voulez inscrire la création',
+            'id'             => $prefix.'concours_select',
+            'taxonomy'       => 'concours', //Enter Taxonomy Slug
+            'type'           => 'taxonomy_select',
+            'remove_default' => 'true', // Removes the default metabox provided by WP core.
+            // Optionally override the args sent to the WordPress get_terms function.
+//            'query_args' => array(
+//                // 'orderby' => 'slug',
+//                // 'hide_empty' => true,
+//            ),
+        ) );
 
-        add_submenu_page('multimedialpes', 'Candidats', 'Candidats', 'manage_options', 'edit.php?post_type=candidat', '');
+
+        $general_info->add_field( array(
+            'name' => 'Type de création',
+            'id'   => $prefix.'type',
+            'type'             => 'select',
+            'show_option_none' => false,
+            'default'          => 'custom',
+            'options'          => array(
+                'audiovisuel'   =>   __( 'Audiovisuel', 'cmb2' ),
+                'web'     =>    __( 'Web', 'cmb2' ),
+                'graphisme'     => __( 'Graphisme', 'cmb2' ),
+                'other' => __( 'Autre', 'cmb2' ),
+            ),
+        ) );
+        $general_info->add_field( array(
+            'name'    => 'Contributeurs',
+            'desc'    => 'Les noms de tous les contributeurs au projet)',
+            'id'      => $prefix.'contributors',
+            'type'    => 'text',
+            'repeatable' => true,
+            'text' => array(
+                'add_row_text' => 'Ajouter un contributeur',
+            ),
+        ) );
+//        $group_field_contributors = $general_info->add_field( array(
+//            'id'          => $prefix.'contributors',
+//            'type'        => 'group',
+//            'description' => __( 'Contributeurs au projet', 'cmb2' ),
+//            // 'repeatable'  => false, // use false if you want non-repeatable group
+//            'options'     => array(
+//                'group_title'       => __( 'Contributeur {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
+//                'add_button'        => __( 'Ajouter un contributeur', 'cmb2' ),
+//                'remove_button'     => __( 'Retirer le contributeur', 'cmb2' ),
+//                'sortable'          => true,
+//            ),
+//        ) );
+//        $general_info->add_group_field( $group_field_contributors, array(
+//            'name' => 'Nom du contributeur',
+//            'id'   => 'name',
+//            'type' => 'text',
+//            // 'repeatable' => true, // Repeatable fields are supported w/in repeatable groups (for most types)
+//        ) );
+
+        // Box audiovisuel
+        $av_info = new_cmb2_box( array(
+            'id'               => $prefix.'details_audiovisuel',
+            'title'            => esc_html__( 'Détails création audiovisuelle', 'cmb2' ), // Doesn't output for term boxes
+            'object_types'     => array( 'candidat' ),
+            'priority'  => 'low'
+        ) );
+
+        $av_info->add_field( array(
+            'id'    => $prefix.'info_audiovisuel',
+            'type' => 'hidden',
+            'classes' => 'conditionnal-attributes',
+            'attributes' => array(
+                'data-conditional-id'    => $prefix . 'type',
+                'data-conditional-value' => 'audiovisuel',
+            ),
+        ) );
+
+        $av_info->add_field( array(
+            'name'           => 'Test',
+            'desc'           => 'Sélectionner le concours où vous voulez inscrire la création',
+            'id'             => $prefix.'concours_select',
+            'type'           => 'text'
+        ) );
+
+        // Graphisme
+        $graphisme_info = new_cmb2_box( array(
+            'id'               => $prefix.'details_graphisme',
+            'title'            => esc_html__( 'Détails création graphique', 'cmb2' ), // Doesn't output for term boxes
+            'object_types'     => array( 'candidat' ),
+            'priority'  => 'low'
+        ) );
+
+        $graphisme_info->add_field( array(
+            'name' => 'Image(s)',
+            'desc' => 'La ou les images composant votre projet',
+            'id'   => $prefix.'graphisme_images',
+            'type' => 'file_list',
+            // 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
+             'query_args' => array( 'type' => 'image' ), // Only images attachment
+            // Optional, override default text strings
+            'text' => array(
+                'add_upload_files_text' => 'Ajouter ou Uploader des images', // default: "Add or Upload Files"
+                'remove_image_text' => 'Enelever l\'image', // default: "Remove Image"
+                'file_text' => 'Fichier:', // default: "File:"
+                'file_download_text' => 'Télécharger', // default: "Download"
+                'remove_text' => 'Enlever', // default: "Remove"
+            ),
+        ) );
+        $graphisme_info->add_field( array(
+            'name' => 'Type de création',
+            'id'   => $prefix.'graphisme_type',
+            'type'             => 'select',
+            'show_option_none' => false,
+            'default'          => 'custom',
+            'options'          => array(
+                'infographie'   =>   __( 'Infographie', 'cmb2' ),
+                'dessin'     =>    __( 'Dessin', 'cmb2' ),
+                'other' => __( 'Autre', 'cmb2' ),
+            ),
+        ) );
+
+        $graphisme_info->add_field( array(
+            'name'    => 'Description du projet',
+            'desc'    => 'Expliquez votre démarche, les choses à savoir pour le projet, etc...',
+            'id'      => $prefix.'graphisme_description',
+            'type'    => 'wysiwyg',
+            'options' => array(),
+        ) );
     }
 
-    public function apply_menu_filters($parent_file) {
-        global $current_screen,$submenu_file;
 
-        $base = $current_screen->base;
-
-        $action = $current_screen->action;
-
-        $post_type = $current_screen->post_type;
-
-        $taxonomy = $current_screen->taxonomy;
-
-        if ($taxonomy == 'concours'){
-
-            $parent_file = 'multimedialpes';
-
-            $submenu_file = 'edit-tags.php?taxonomy='.'concours'.'&post_type='.'candidat';
-
-        }
-
-        elseif ($post_type == 'candidat') {
-
-            $parent_file = 'multimedialpes';
-
-            $submenu_file = 'edit.php?post_type='.'candidat';
-
-        }
-
-
-        return $parent_file;
-    }
-
-    public function render_html () {
-	    include_once __DIR__.'/partials/multimedialpes-admin-display.php';
-    }
-
-    public function create_coucours_taxonomies () {
+    public function create_coucours_metaboxes () {
         $prefix = 'concours_';
 
         /**
@@ -282,12 +380,58 @@ dashicons-chart-area');
             'default'          => 'custom',
             'options'          => array(
                 'various' => __( 'Various', 'cmb2' ),
-                'images'   => __( 'Images', 'cmb2' ),
-                'text'     => __( 'Text', 'cmb2' ),
-                'video'     => __( 'Video', 'cmb2' ),
+                'audiovisuel'   => __( 'Audiovisuel', 'cmb2' ),
+                'web'     => __( 'Web', 'cmb2' ),
+                'graphisme'     => __( 'Graphisme', 'cmb2' ),
             ),
         ) );
-
     }
+
+    function add_admin_menu() {
+        add_menu_page('Multimédialpes', 'Multimédialpes', 'manage_options', 'multimedialpes', '', '
+dashicons-chart-area');
+
+        add_submenu_page('multimedialpes', 'Le plugin de Multimédialpes !', 'Aperçu', 'manage_options', 'multimedialpes', [$this, 'render_html']);
+
+        add_submenu_page('multimedialpes', 'Concours', 'Concours', 'manage_options', 'edit-tags.php?taxonomy=concours&post_type=candidat', '');
+
+        add_submenu_page('multimedialpes', 'Candidats', 'Candidats', 'manage_options', 'edit.php?post_type=candidat', '');
+    }
+
+    public function apply_menu_filters($parent_file) {
+        global $current_screen,$submenu_file;
+
+        $base = $current_screen->base;
+
+        $action = $current_screen->action;
+
+        $post_type = $current_screen->post_type;
+
+        $taxonomy = $current_screen->taxonomy;
+
+        if ($taxonomy == 'concours'){
+
+            $parent_file = 'multimedialpes';
+
+            $submenu_file = 'edit-tags.php?taxonomy='.'concours'.'&post_type='.'candidat';
+
+        }
+
+        elseif ($post_type == 'candidat') {
+
+            $parent_file = 'multimedialpes';
+
+            $submenu_file = 'edit.php?post_type='.'candidat';
+
+        }
+
+
+        return $parent_file;
+    }
+
+    public function render_html () {
+        include_once __DIR__.'/partials/multimedialpes-admin-display.php';
+    }
+
 
 }
