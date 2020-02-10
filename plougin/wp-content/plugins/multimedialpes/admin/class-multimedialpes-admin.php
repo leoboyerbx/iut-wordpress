@@ -235,4 +235,59 @@ dashicons-chart-area');
 	    include_once __DIR__.'/partials/multimedialpes-admin-display.php';
     }
 
+    public function create_coucours_taxonomies () {
+        $prefix = 'concours_';
+
+        /**
+         * Metabox to add fields to categories and tags
+         */
+        $cmb_term = new_cmb2_box( array(
+            'id'               => $prefix . 'edit',
+            'title'            => esc_html__( 'Infos du concours', 'cmb2' ), // Doesn't output for term boxes
+            'object_types'     => array( 'term' ), // Tells CMB2 to use term_meta vs post_meta
+            'taxonomies'       => array( 'concours' ), // Tells CMB2 which taxonomies should have these fields
+            'new_term_section' => true, // Will display in the "Add New Category" section
+        ) );
+
+        $cmb_term->add_field( array(
+            'name' => 'Start Date',
+            'id'   => $prefix.'start_date',
+            'type' => 'text_datetime_timestamp',
+            'column' => array(
+                'position' => 2
+            ),
+            // 'timezone_meta_key' => 'wiki_test_timezone',
+            // 'date_format' => 'l jS \of F Y',
+        ) );
+
+        $cmb_term->add_field( array(
+            'name' => 'End Date',
+            'id'   => $prefix.'end_date',
+            'type' => 'text_datetime_timestamp',
+            'column' => array(
+                'position' => 3
+            ),
+            // 'timezone_meta_key' => 'wiki_test_timezone',
+            // 'date_format' => 'l jS \of F Y',
+        ) );
+
+        $cmb_term->add_field( array(
+            'name' => 'Type of contest',
+            'id'   => $prefix.'type',
+            'type'             => 'select',
+            'show_option_none' => false,
+            'column' => array(
+                'position' => 4,
+            ),
+            'default'          => 'custom',
+            'options'          => array(
+                'various' => __( 'Various', 'cmb2' ),
+                'images'   => __( 'Images', 'cmb2' ),
+                'text'     => __( 'Text', 'cmb2' ),
+                'video'     => __( 'Video', 'cmb2' ),
+            ),
+        ) );
+
+    }
+
 }
