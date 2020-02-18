@@ -55,9 +55,8 @@ class Multimedialpes_Public {
 
     public function candidates_html ($atts, $content) {
 	    include_once __DIR__.'/partials/multimedialpes-public-display.php';
-	    global $wpdb;
 
-        return multimedialpes_public_display(compact());
+        return multimedialpes_public_display($atts, $content);
     }
 
 	/**
