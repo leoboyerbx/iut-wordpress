@@ -161,6 +161,7 @@ class Multimedialpes {
         $this->loader->add_action( 'init', $plugin_admin, 'create_concours_tax');
 
         $this->loader->add_action( "manage_edit-concours_columns", $plugin_admin, 'register_concours_columns', 15);
+        $this->loader->add_action( "manage_concours_custom_column", $plugin_admin, 'register_concours_columns_display', 15, 3);
 
         $this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'create_candidat_metaboxes');
 

@@ -52,6 +52,7 @@ class Multimedialpes_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
+
 	}
 
 	/**

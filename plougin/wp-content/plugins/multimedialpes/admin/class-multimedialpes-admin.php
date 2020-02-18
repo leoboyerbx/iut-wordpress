@@ -504,6 +504,16 @@ dashicons-chart-area');
         return array_merge($new_columns_before, $columns, $new_columns_after);
     }
 
+    public function register_concours_columns_display ( $column, $col_name,  $item_id) {
+        if ($col_name === "id") {
+            return $item_id;
+        }
+        if ($col_name === "shortcode") {
+            return "[multimedialpes id=$item_id]";
+        }
+        return $column;
+    }
+
     public function render_html () {
         include_once __DIR__.'/partials/multimedialpes-admin-display.php';
     }
