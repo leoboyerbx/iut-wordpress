@@ -41,6 +41,8 @@ class Multimedialpes_Loader {
 	 */
 	protected $filters;
 
+	protected $shortcodes;
+
 	/**
 	 * Initialize the collections used to maintain the actions and filters.
 	 *
@@ -50,6 +52,7 @@ class Multimedialpes_Loader {
 
 		$this->actions = array();
 		$this->filters = array();
+		$this->shortcodes = array();
 
 	}
 
@@ -81,6 +84,10 @@ class Multimedialpes_Loader {
 		$this->filters = $this->add( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
 	}
 
+	public function add_shortcode ($shortcode, $component, $callback) {
+	    $this->shortcodes = $this->add( $this->shortcodes, $shortcode, $component, $callback );
+    }
+
 	/**
 	 * A utility function that is used to register the actions and hooks into a single
 	 * collection.
@@ -95,15 +102,25 @@ class Multimedialpes_Loader {
 	 * @param    int                  $accepted_args    The number of arguments that should be passed to the $callback.
 	 * @return   array                                  The collection of actions and filters registered with WordPress.
 	 */
-	private function add( $hooks, $hook, $component, $callback, $priority, $accepted_args ) {
+	private function add( $hooks, $hook, $component, $callback, $priority = null, $accepted_args = null ) {
 
-		$hooks[] = array(
-			'hook'          => $hook,
-			'component'     => $component,
-			'callback'      => $callback,
-			'priority'      => $priority,
-			'accepted_args' => $accepted_args
-		);
+	    if ($priority === null) {
+            $hooks[] = array(
+                'hook'          => $hook,
+                'component'     => $component,
+                'callback'      => $callback
+            );
+        } else {
+            $hooks[] = array(
+                'hook'          => $hook,
+                'component'     => $component,
+                'callback'      => $callback,
+                'priority'      => $priority,
+                'accepted_args' => $accepted_args
+            );
+
+        }
+
 
 		return $hooks;
 
@@ -124,6 +141,9 @@ class Multimedialpes_Loader {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
 
+		foreach ( $this->shortcodes as $hook ) {
+			add_shortcode( $hook['hook'], array( $hook['component'], $hook['callback'] ) );
+		}
 	}
 
 }

@@ -1,0 +1,5 @@
+affichage shprtcode
+e
+rôles:
+ - modifier et voir les contributions
+ - modifier médias

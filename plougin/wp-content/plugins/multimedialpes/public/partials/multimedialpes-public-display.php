@@ -11,5 +11,16 @@
  * @package    Multimedialpes
  * @subpackage Multimedialpes/public/partials
  */
+function multimedialpes_public_display ($data) {
+    extract($data);
+    ob_start();
+        ?>
+    <ul>
+        <li></li>
+    </ul>
+<?php
+    return ob_get_clean();
+}
+
 ?>
 

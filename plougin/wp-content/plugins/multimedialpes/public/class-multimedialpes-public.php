@@ -50,10 +50,15 @@ class Multimedialpes_Public {
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-
 
 	}
+
+    public function candidates_html ($atts, $content) {
+	    include_once __DIR__.'/partials/multimedialpes-public-display.php';
+	    global $wpdb;
+
+        return multimedialpes_public_display(compact());
+    }
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
