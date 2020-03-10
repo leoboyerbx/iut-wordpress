@@ -242,6 +242,15 @@ class Multimedialpes_Admin {
                 'add_row_text' => 'Ajouter un contributeur',
             ),
         ) );
+        $general_info->add_field( array(
+            'name' => 'Image d\'illustration',
+            'desc' => 'Une image pour illustrer le projet',
+            'id'   => $prefix.'thumbnail',
+            'type' => 'file',
+            // 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
+            'query_args' => array( 'type' => 'image' ), // Only images attachment
+            // Optional, override default text strings
+        ) );
 //        $group_field_contributors = $general_info->add_field( array(
 //            'id'          => $prefix.'contributors',
 //            'type'        => 'group',
