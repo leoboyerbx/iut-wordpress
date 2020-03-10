@@ -2,6 +2,7 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css";
 
 .multimedialpes_card {
     display: flex;
@@ -9,7 +10,7 @@
     max-width: 800px;
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 30px 80px 10px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 80px 10px rgba(0, 0, 0, .2);
 }
 
 .multimedialpes_card__hero {
@@ -20,6 +21,7 @@
     width: 100%;
     display: block;
     object-fit: cover;
+    height: 100%;
 }
 
 .multimedialpes_card__content {
@@ -76,6 +78,14 @@
 .multimedialpes_card__details{
     display:flex;
     margin-top:auto;
+    flex-direction: column;
+}
+
+.multimedialpes_card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
 }
 
 .multimedialpes_card__detail{
@@ -86,10 +96,13 @@
     display: flex;
     align-items: center;
 }
+.multimedialpes_card_action {
+    font-size: .7em;
+}
 
 .emoji{
     font-size: 20px;
-    margin-right:3px
+    margin-right: 10px;
 }
 
 .multimedialpes-candidatures {
@@ -97,4 +110,54 @@
     max-width: 1200px!important;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     grid-gap: 20px;
+}
+
+.multimedialpes_btn {
+    display: inline-block;
+    border: solid 2px transparent;
+    border-radius: 7px;
+    padding: 15px 27px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.multimedialpes_btn-audiovisuel {
+    background-color: #984bb2;
+    color: #fff;
+}
+.multimedialpes_btn-audiovisuel:hover {
+    background-color: #ad6ec2;
+}
+.multimedialpes_btn-outline-audiovisuel {
+    color: #984bb2;
+    border-color: #984bb2;
+}
+.multimedialpes_btn-outline-audiovisuel:hover {
+    background-color: #984bb2;
+    color: #fff;
+}
+.multimedialpes_btn-outline-web {
+    color: #6c90cd;
+    border-color: #6c90cd;
+}
+.multimedialpes_btn-outline-web:hover {
+    background-color: #6c90cd;
+    color: #fff;
+}
+.multimedialpes_btn-outline-graphisme {
+    color: #cd532e;
+    border-color: #cd532e;
+}
+.multimedialpes_btn-outline-graphisme:hover {
+    background-color: #cd532e;
+    color: #fff;
+}
+.multimedialpes_btn-outline-autre {
+    color: #22cd5a;
+    border-color: #22cd5a;
+}
+.multimedialpes_btn-outline-autre:hover {
+    background-color: #22cd5a;
+    color: #fff;
 }

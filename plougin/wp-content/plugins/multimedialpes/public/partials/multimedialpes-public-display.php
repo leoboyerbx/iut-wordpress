@@ -42,9 +42,19 @@ function multimedialpes_public_display ($atts, $content) {
                 <div class="multimedialpes_card__tags">
                     <div class="multimedialpes_card__tag multimedialpes_card__tag--<?= strtolower($type); ?>"><?= $type ?></div>
                 </div>
-                <p class="multimedialpes_card__description">Yummy veggie multimedialpes_card with tasty olives, crisp peppers, fresh arugula and original italian tomato sauce.</p>
-                <div class="multimedialpes_card__details">
-                    <div class="multimedialpes_card__detail"><span class="emoji">🍕</span>850 kcal</div>
+                <p class="multimedialpes_card__description"><?= wp_trim_words(get_post_meta( get_the_ID(), 'candidat_'.strtolower($type).'_description', true )) ?></p>
+                <div class="multimedialpes_card__footer">
+                    <div class="multimedialpes_card__details">
+                        <?php
+                        foreach (get_post_meta( get_the_ID(), 'candidat_contributors', true ) as $contributor):
+                            ?>
+                            <div class="multimedialpes_card__detail"><span class="emoji"><i class="fas fa-user"></i></span> <?= $contributor ?></div>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="multimedialpes_card_action">
+                        <a href="#" class="multimedialpes_btn multimedialpes_btn-outline-<?= strtolower($type) ?>"><i class="fas fa-eye"></i> Voir</a>
+                    </div>
+
                 </div>
             </div>
         </figure>
