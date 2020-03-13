@@ -26,8 +26,10 @@ function multimedialpes_public_display ($atts, $content) {
     $candidates_data->query( $args);
 //    die(var_dump($candidates_data));
     ob_start();
+    ?>
+<div class="multimedialpes-candidatures">
+<?php
     if ($candidates_data->have_posts()):
-        echo '<div class="multimedialpes-candidatures">';
     while ($candidates_data->have_posts()): $candidates_data->the_post();
         $type = get_post_meta( get_the_ID(), 'candidat_type', true );
         ?>
@@ -52,7 +54,7 @@ function multimedialpes_public_display ($atts, $content) {
                         <?php endforeach; ?>
                     </div>
                     <div class="multimedialpes_card_action">
-                        <a href="#" class="multimedialpes_btn multimedialpes_btn-outline-<?= strtolower($type) ?>"><i class="fas fa-eye"></i> Voir</a>
+                        <a href="#" data-toggle="modal" data-target="#candidate-modal" data-candidate-id="<?= the_ID() ?>" class="multimedialpes_btn multimedialpes_btn-outline-<?= strtolower($type) ?>"><i class="fas fa-eye"></i> Voir</a>
                     </div>
 
                 </div>
@@ -60,7 +62,15 @@ function multimedialpes_public_display ($atts, $content) {
         </figure>
 <?php
     endwhile;
-        echo '</div>';
+    ?>
+<div id="candidate-modal-wrapper">
+    <div id="candidate-modal">
+
+    </div>
+</div>
+        </div>
+
+<?php
     endif;
     return ob_get_clean();
 }
