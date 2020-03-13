@@ -198,6 +198,7 @@ class Multimedialpes_Admin {
             'id'               => $prefix . 'edit',
             'title'            => esc_html__( 'Infos sur la candidature', 'cmb2' ), // Doesn't output for term boxes
             'object_types'     => array( 'candidat' ), // Tells CMB2 to use term_meta vs post_meta
+            'show_in_rest' => WP_REST_Server::READABLE,
         ) );
         $general_info->add_field( array(
             'id'   => 'new_candidat_trigger',
@@ -275,7 +276,8 @@ class Multimedialpes_Admin {
             'id'               => $prefix . 'details_audiovisuel',
             'title'            => esc_html__( 'Détails : audiovisuel', 'cmb2' ),
             'object_types'     => array( 'candidat' ),
-            'priority'  => 'low'
+            'priority'  => 'low',
+            'show_in_rest' => WP_REST_Server::READABLE
         ) );
 
         $av_info->add_field( array(
@@ -308,7 +310,8 @@ class Multimedialpes_Admin {
             'id'               => $prefix . 'details_web',
             'title'            => esc_html__( 'Détails : web', 'cmb2' ),
             'object_types'     => array( 'candidat' ),
-            'priority'  => 'low'
+            'priority'  => 'low',
+            'show_in_rest' => WP_REST_Server::READABLE
         ) );
 
         $web_info->add_field( array(
@@ -351,7 +354,8 @@ class Multimedialpes_Admin {
             'id'               => $prefix.'details_graphisme',
             'title'            => esc_html__( 'Détails création graphique', 'cmb2' ), // Doesn't output for term boxes
             'object_types'     => array( 'candidat' ),
-            'priority'  => 'low'
+            'priority'  => 'low',
+            'show_in_rest' => WP_REST_Server::READABLE
         ) );
 
         $graphisme_info->add_field( array(
@@ -395,7 +399,8 @@ class Multimedialpes_Admin {
             'id'               => $prefix.'details_other',
             'title'            => esc_html__( 'Détails', 'cmb2' ), // Doesn't output for term boxes
             'object_types'     => array( 'candidat' ),
-            'priority'  => 'low'
+            'priority'  => 'low',
+            'show_in_rest' => WP_REST_Server::READABLE
         ) );
         $autre_info->add_field( array(
             'name'    => 'Description du projet',

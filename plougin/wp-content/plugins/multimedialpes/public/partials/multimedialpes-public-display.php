@@ -54,7 +54,7 @@ function multimedialpes_public_display ($atts, $content) {
                         <?php endforeach; ?>
                     </div>
                     <div class="multimedialpes_card_action">
-                        <a href="#" data-toggle="modal" data-target="#candidate-modal" data-candidate-id="<?= the_ID() ?>" class="multimedialpes_btn multimedialpes_btn-outline-<?= strtolower($type) ?>"><i class="fas fa-eye"></i> Voir</a>
+                        <a href="#" data-candidate-id="<?= the_ID() ?>" class="multimedialpes_btn multimedialpes_btn-outline-<?= strtolower($type) ?>"><i class="fas fa-eye"></i> Voir</a>
                     </div>
 
                 </div>
