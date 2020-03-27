@@ -27,7 +27,7 @@ function multimedialpes_public_display ($atts, $content) {
 //    die(var_dump($candidates_data));
     ob_start();
     ?>
-<div class="multimedialpes-candidatures">
+<div class="multimedialpes-candidatures" data-rest-url="<?= get_rest_url() ?>">
 <?php
     if ($candidates_data->have_posts()):
     while ($candidates_data->have_posts()): $candidates_data->the_post();

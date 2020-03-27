@@ -163,7 +163,7 @@ class Multimedialpes {
         $this->loader->add_action( "manage_edit-concours_columns", $plugin_admin, 'register_concours_columns', 15);
         $this->loader->add_action( "manage_concours_custom_column", $plugin_admin, 'register_concours_columns_display', 15, 3);
 
-        $this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'create_candidat_metaboxes');
+        $this->loader->add_action( 'cmb2_init', $plugin_admin, 'create_candidat_metaboxes');
 
         $this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_menu');
         $this->loader->add_action('parent_file', $plugin_admin, 'apply_menu_filters');
