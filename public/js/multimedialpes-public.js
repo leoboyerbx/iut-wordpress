@@ -3,15 +3,24 @@
 
 	$(document).ready(function () {
 		const restURL = $('.multimedialpes-candidatures').data('rest-url')
-		$('[data-candidate-id]').click(function (ev) {
+		$('.js-multimedialpes-view').click(function (ev) {
 			ev.preventDefault()
-			const $modal = $('#candidate-modal-wrapper')
-			$modal.addClass('visible')
+			const url = this.href
+			const $modalWrapper = $('#candidate-modal-wrapper')
+			const $modal = $('#candidate-modal')
+			$modalWrapper.addClass('visible')
 			$.ajax({
-				url: restURL+ 'cmb2/v1/boxes'
+				url
 			}).done(data => {
-				console.log(data)
+				const resultPage = $.parseHTML(data)
+				$modal.html($(resultPage).find('[data-api]').html())
 			})
+		})
+
+		$('#candidate-modal-wrapper').click(function (ev) {
+			if (ev.target === this) {
+				$(this).removeClass('visible')
+			}
 		})
 	})
 

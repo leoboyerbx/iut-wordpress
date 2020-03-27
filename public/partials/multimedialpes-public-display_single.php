@@ -17,7 +17,7 @@ function multimedialpes_public_display_single ($content) {
 <?php
         $type = get_post_meta( get_the_ID(), 'candidat_type', true );
         ?>
-        <figure class="multimedialpes_card">
+        <figure class="multimedialpes_card single" data-api="card-content">
             <div class="multimedialpes_card__hero">
                 <img src="<?= get_post_meta( get_the_ID(), 'candidat_thumbnail', true ) ?>" alt="multimedialpes_card" class="multimedialpes_card__img">
             </div>
@@ -28,7 +28,12 @@ function multimedialpes_public_display_single ($content) {
                 <div class="multimedialpes_card__tags">
                     <div class="multimedialpes_card__tag multimedialpes_card__tag--<?= strtolower($type); ?>"><?= $type ?></div>
                 </div>
-                <p class="multimedialpes_card__description"><?= wp_trim_words(get_post_meta( get_the_ID(), 'candidat_'.strtolower($type).'_description', true )) ?></p>
+                <div class="multimedialpes_card__data-content">
+                    <p class="multimedialpes_card__description"><?= get_post_meta( get_the_ID(), 'candidat_'.strtolower($type).'_description', true ) ?></p>
+                    <p>
+                        <strong>Date de réalisation: </strong><?= get_post_meta( get_the_ID(), 'candidat_date', true ) ?>
+                    </p>
+                </div>
                 <div class="multimedialpes_card__footer">
                     <div class="multimedialpes_card__details">
                         <?php
@@ -36,9 +41,6 @@ function multimedialpes_public_display_single ($content) {
                             ?>
                             <div class="multimedialpes_card__detail"><span class="emoji"><i class="fas fa-user"></i></span> <?= $contributor ?></div>
                         <?php endforeach; ?>
-                    </div>
-                    <div class="multimedialpes_card_action">
-                        <a href="#" data-candidate-id="<?= the_ID() ?>" class="multimedialpes_btn multimedialpes_btn-outline-<?= strtolower($type) ?>"><i class="fas fa-eye"></i> Voir</a>
                     </div>
 
                 </div>

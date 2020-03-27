@@ -244,6 +244,13 @@ class Multimedialpes_Admin {
             ),
         ) );
         $general_info->add_field( array(
+            'name' => 'Date de réalisation',
+            'id'   => $prefix.'date',
+            'type' => 'text_date',
+            // 'timezone_meta_key' => 'wiki_test_timezone',
+             'date_format' => 'l j F Y',
+        ) );
+        $general_info->add_field( array(
             'name' => 'Image d\'illustration',
             'desc' => 'Une image pour illustrer le projet',
             'id'   => $prefix.'thumbnail',
