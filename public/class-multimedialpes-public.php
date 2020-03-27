@@ -59,6 +59,14 @@ class Multimedialpes_Public {
         return multimedialpes_public_display($atts, $content);
     }
 
+    public function candidate_single_html ( $content ) {
+	    if (get_post_type() === "candidat") {
+            include_once __DIR__.'/partials/multimedialpes-public-display_single.php';
+            return multimedialpes_public_display_single( $content );
+        }
+	    return $content;
+    }
+
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
