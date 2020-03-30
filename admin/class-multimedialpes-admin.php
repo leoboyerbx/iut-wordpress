@@ -259,24 +259,13 @@ class Multimedialpes_Admin {
             'query_args' => array( 'type' => 'image' ), // Only images attachment
             // Optional, override default text strings
         ) );
-//        $group_field_contributors = $general_info->add_field( array(
-//            'id'          => $prefix.'contributors',
-//            'type'        => 'group',
-//            'description' => __( 'Contributeurs au projet', 'cmb2' ),
-//            // 'repeatable'  => false, // use false if you want non-repeatable group
-//            'options'     => array(
-//                'group_title'       => __( 'Contributeur {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-//                'add_button'        => __( 'Ajouter un contributeur', 'cmb2' ),
-//                'remove_button'     => __( 'Retirer le contributeur', 'cmb2' ),
-//                'sortable'          => true,
-//            ),
-//        ) );
-//        $general_info->add_group_field( $group_field_contributors, array(
-//            'name' => 'Nom du contributeur',
-//            'id'   => 'name',
-//            'type' => 'text',
-//            // 'repeatable' => true, // Repeatable fields are supported w/in repeatable groups (for most types)
-//        ) );
+        $general_info->add_field( array(
+            'name'    => 'Description du projet',
+            'desc'    => 'Expliquez votre démarche, les choses à savoir pour le projet, etc...',
+            'id'      => $prefix.'description',
+            'type'    => 'wysiwyg',
+            'options' => array(),
+        ) );
 
         // Box audiovisuel
         $av_info = new_cmb2_box( array(
@@ -284,7 +273,6 @@ class Multimedialpes_Admin {
             'title'            => esc_html__( 'Détails : audiovisuel', 'cmb2' ),
             'object_types'     => array( 'candidat' ),
             'priority'  => 'low',
-            'show_in_rest' => WP_REST_Server::READABLE
         ) );
 
         $av_info->add_field( array(
@@ -303,13 +291,6 @@ class Multimedialpes_Admin {
                 'motion-design' => __('Motion-design', 'cmb2'),
                 'other' => __('Autre', 'cmb2'),
             ),
-        ) );
-        $av_info->add_field( array(
-            'name'    => 'Description du projet',
-            'desc'    => 'Expliquez votre démarche, les choses à savoir pour le projet, etc...',
-            'id'      => $prefix.'audiovisuel_description',
-            'type'    => 'wysiwyg',
-            'options' => array(),
         ) );
 
         //Web
@@ -477,7 +458,7 @@ class Multimedialpes_Admin {
         add_menu_page('Multimédialpes', 'Multimédialpes', 'manage_options', 'multimedialpes', '', '
 dashicons-chart-area');
 
-        add_submenu_page('multimedialpes', 'Le plugin de Multimédialpes !', 'Aperçu', 'manage_options', 'multimedialpes', [$this, 'render_html']);
+        add_submenu_page('multimedialpes', 'Le plugin de Multimédialpes !', 'Réglages', 'manage_options', 'multimedialpes', [$this, 'admin_settings_page']);
 
         add_submenu_page('multimedialpes', 'Concours', 'Concours', 'manage_options', 'edit-tags.php?taxonomy=concours&post_type=candidat', '');
 
@@ -535,7 +516,7 @@ dashicons-chart-area');
         return $column;
     }
 
-    public function render_html () {
+    public function admin_settings_page () {
         include_once __DIR__.'/partials/multimedialpes-admin-display.php';
     }
 
