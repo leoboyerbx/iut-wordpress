@@ -517,6 +517,14 @@ dashicons-chart-area');
     }
 
     public function admin_settings_page () {
+	      global $wpdb;
+	      if (!empty($_POST['title']) && !empty($_POST['media_type'])) {
+	        $wpdb->insert($wpdb->prefix . 'multimedialpes_contest_types', array(
+	            'title' => $_POST['title'],
+	            'media_type' => $_POST['media_type']
+          ));
+        }
+	      $types = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}multimedialpes_contest_types");
         include_once __DIR__.'/partials/multimedialpes-admin-display.php';
     }
 
