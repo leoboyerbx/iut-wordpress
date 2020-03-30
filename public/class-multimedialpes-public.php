@@ -109,7 +109,9 @@ class Multimedialpes_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/multimedialpes-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'isotope', plugin_dir_url( __FILE__ ) . 'js/isotope.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/multimedialpes-public.js', array( 'jquery', 'isotope' ), $this->version, false );
+		
 
 	}
 

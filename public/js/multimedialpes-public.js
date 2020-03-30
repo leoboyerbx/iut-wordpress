@@ -2,6 +2,7 @@
 	'use strict';
 
 	$(document).ready(function () {
+
 		const restURL = $('.multimedialpes-candidatures').data('rest-url')
 		$('.js-multimedialpes-view').click(function (ev) {
 			ev.preventDefault()
@@ -22,6 +23,15 @@
 				$(this).removeClass('visible')
 			}
 		})
+
+		$('.multimedialpes-filter-btn').click(function (ev) {
+			ev.preventDefault()
+
+			const selector = this.dataset.filter === "*" ? '' : this.dataset.filter
+			$('.multimedialpes_card').hide()
+			$('.multimedialpes_card' + selector).show()
+		})
+
 	})
 
 

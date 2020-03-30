@@ -122,10 +122,20 @@
 }
 
 .multimedialpes-candidatures {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     max-width: 1200px!important;
+}
+.multimedialpes-candidatures .grid {
+    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     grid-gap: 20px;
+
+}
+
+.multimedialpes-candidatures-filters {
+    text-align: center;
+    padding: 20px 20px;
 }
 
 .multimedialpes_btn {
