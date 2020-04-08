@@ -56,7 +56,7 @@ class Multimedialpes_Public {
     public function candidates_html ($atts, $content) {
 	    include_once __DIR__.'/partials/multimedialpes-public-display.php';
 
-        return multimedialpes_public_display($atts, $content);
+      return multimedialpes_public_display($atts, $content);
     }
 
     public function candidate_single_html ( $content ) {
