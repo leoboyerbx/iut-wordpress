@@ -52,7 +52,7 @@
                   <div class="multimedialpes_card__tags">
                       <div class="multimedialpes_card__tag multimedialpes_card__tag--<?= strtolower($type); ?>"><?= $type ?></div>
                   </div>
-                  <p class="multimedialpes_card__description"><?= wp_trim_words(get_post_meta( get_the_ID(), 'candidat_'.strtolower($type).'_description', true )) ?></p>
+                  <p class="multimedialpes_card__description"><?= wp_trim_words(get_post_meta( get_the_ID(), 'candidat_description', true )) ?></p>
                   <div class="multimedialpes_card__footer">
                       <div class="multimedialpes_card__details">
                         <?php
