@@ -95,8 +95,8 @@
        * between the defined hooks and the functions defined in this
        * class.
        */
-      
-      wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/multimedialpes-admin.js', array( 'jquery' ), $this->version, false );
+      wp_enqueue_style('wp-color-picker');
+      wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/multimedialpes-admin.js', array( 'wp-color-picker' ), $this->version, false );
     }
     
     public function create_candidat_cpt() {
@@ -276,6 +276,7 @@
             'object_types'     => array( 'candidat' ),
             'priority'  => 'low',
         ) );
+        $prefix = $prefix . "details_{$type->id}_";
         
         if ($type->media_type === 'video') {
           $new_box->add_field( array(

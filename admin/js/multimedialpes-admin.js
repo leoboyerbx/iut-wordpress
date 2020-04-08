@@ -24,5 +24,11 @@
 
 		}
 
+		$('.color-field')
+				.wpColorPicker({
+					change: function (event, ui) {
+						console.log(event, ui)
+					}
+				})
 	})
 })( jQuery );

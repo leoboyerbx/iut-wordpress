@@ -19,6 +19,7 @@
   <tr>
     <th class="row-title">Nom</th>
     <th>Catégorie de médias</th>
+    <th>Couleur d'affichage</th>
     <th></th>
   </tr>
   </thead>
@@ -38,6 +39,9 @@
         </select>
       </form>
     </td>
+      <td>
+          <input type='text' class='color-field'>
+      </td>
     <td>
       <form method="post">
         <input type="hidden" name="action" value="delete">

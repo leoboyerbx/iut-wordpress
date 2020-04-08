@@ -72,7 +72,7 @@
                           <?php endforeach; ?>
                       </div>
                       <div class="multimedialpes_card_action">
-                          <a href="<?= the_permalink() ?>" class="multimedialpes_btn multimedialpes_btn-outline-<?= strtolower($type) ?> js-multimedialpes-view"><i class="fas fa-eye"></i> Voir</a>
+                          <a href="<?= the_permalink() ?>" class="multimedialpes_btn multimedialpes_btn-outline-<?= strtolower($type->title) ?> js-multimedialpes-view"><i class="fas fa-eye"></i> Voir</a>
                       </div>
 
                   </div>

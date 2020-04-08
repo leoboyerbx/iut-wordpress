@@ -12,10 +12,18 @@
  * @subpackage Multimedialpes/public/partials
  */
 function multimedialpes_public_display_single ($content) {
+  
+  global $wpdb;
+  $raw_types = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}multimedialpes_contest_types");
+  //    die(var_dump($candidates_data));
+  $types = [];
+  foreach ($raw_types as $raw_type) {
+    $types[$raw_type->id] = $raw_type;
+  }
     ob_start();
     ?>
 <?php
-        $type = get_post_meta( get_the_ID(), 'candidat_type', true );
+  $type = $types[get_post_meta( get_the_ID(), 'candidat_type', true )];
         ?>
         <figure class="multimedialpes_card single" data-api="card-content">
             <div class="multimedialpes_card__hero">
@@ -26,10 +34,10 @@ function multimedialpes_public_display_single ($content) {
                     <h1 class="multimedialpes_card__heading"><?= the_title(); ?></h1>
                 </div>
                 <div class="multimedialpes_card__tags">
-                    <div class="multimedialpes_card__tag multimedialpes_card__tag--<?= strtolower($type); ?>"><?= $type ?></div>
+                    <div class="multimedialpes_card__tag multimedialpes_card__tag--<?= strtolower($type); ?>"><?= $type->title ?></div>
                 </div>
                 <div class="multimedialpes_card__data-content">
-                    <p class="multimedialpes_card__description"><?= get_post_meta( get_the_ID(), 'candidat_'.strtolower($type).'_description', true ) ?></p>
+                    <p class="multimedialpes_card__description"><?= get_post_meta( get_the_ID(), 'candidat_description', true ) ?></p>
                     <p>
                         <strong>Date de réalisation: </strong><?= get_post_meta( get_the_ID(), 'candidat_date', true ) ?>
                     </p>
