@@ -480,15 +480,19 @@ dashicons-chart-area');
     
     public function admin_settings_page () {
       global $wpdb;
-      if ($_POST['action'] === 'add' && !empty($_POST['title']) && !empty($_POST['media_type'])) {
+      if ($_POST['action'] === 'add' && !empty($_POST['title']) && !empty($_POST['media_type']) && !empty($_POST['color'])) {
         $wpdb->insert($wpdb->prefix . 'multimedialpes_contest_types', array(
             'title' => $_POST['title'],
-            'media_type' => $_POST['media_type']
+            'media_type' => $_POST['media_type'],
+            'color' => $_POST['color']
         ));
       } else if ($_POST['action'] === "delete" && !empty($_POST['id'])) {
         $wpdb->delete($wpdb->prefix . 'multimedialpes_contest_types', ['id' => $_POST['id']]);
-      } else if ($_POST['action'] === "edit" && !empty($_POST['id']) && !empty($_POST['media_type'])) {
-        $wpdb->update($wpdb->prefix . 'multimedialpes_contest_types', ['media_type' => $_POST['media_type']], ['id' => $_POST['id']]);
+      } else if ($_POST['action'] === "edit" && !empty($_POST['id']) && !empty($_POST['media_type']) && !empty($_POST['color'])) {
+        $wpdb->update($wpdb->prefix . 'multimedialpes_contest_types', [
+            'media_type' => $_POST['media_type'],
+            'color' => $_POST['color']
+        ],['id' => $_POST['id']]);
       }
       $types = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}multimedialpes_contest_types");
       include_once __DIR__.'/partials/multimedialpes-admin-display.php';

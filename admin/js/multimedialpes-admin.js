@@ -23,12 +23,18 @@
 			})
 
 		}
+		$('.edit-type').each(function () {
+			const $button = $(this).find('button')
+			$(this).find('select').change(() => {
+				$button.css('display', 'inline-block')
+			})
+			$(this).find('.js-edit-color').wpColorPicker({
+				change: () => {
+					$button.css('display', 'inline-block')
+				}
+			})
+		})
+		$('.color-field-add').wpColorPicker({})
 
-		$('.color-field')
-				.wpColorPicker({
-					change: function (event, ui) {
-						console.log(event, ui)
-					}
-				})
 	})
 })( jQuery );
