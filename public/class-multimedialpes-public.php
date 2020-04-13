@@ -56,15 +56,53 @@ class Multimedialpes_Public {
     public function candidates_html ($atts, $content) {
 	    include_once __DIR__.'/partials/multimedialpes-public-display.php';
 
+      $content .= $this->get_themed_styles();
       return multimedialpes_public_display($atts, $content);
     }
 
     public function candidate_single_html ( $content ) {
 	    if (get_post_type() === "candidat") {
+	      $content .= $this->get_themed_styles();
             include_once __DIR__.'/partials/multimedialpes-public-display_single.php';
             return multimedialpes_public_display_single( $content );
         }
 	    return $content;
+    }
+    
+    protected function get_themed_styles () {
+	    global $wpdb;
+	    $types = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}multimedialpes_contest_types");
+	    ob_start();
+	    ?>
+      <style>
+        <?php
+        foreach ($types as $type):
+          ?>
+        .multimedialpes_card__tag--<?= $type->id ?>{
+          background-color: <?= $type->color ?>
+        }
+    
+        .multimedialpes_btn-<?= $type->id ?> {
+          background-color: <?= $type->color ?>;
+          color: #fff;
+        }
+        .multimedialpes_btn-<?= $type->id ?>:hover {
+          background-color: <?= $type->color ?>;
+        }
+        .multimedialpes_btn-outline-<?= $type->id ?> {
+          color: <?= $type->color ?>;
+          border-color: <?= $type->color ?>;
+        }
+        .multimedialpes_btn-outline-<?= $type->id ?>:hover {
+          background-color: <?= $type->color ?>;
+          color: #fff;
+        }
+        <?php endforeach;
+        ?>
+      </style>
+
+<?php
+      return ob_get_clean();
     }
 
 	/**

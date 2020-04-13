@@ -29,20 +29,19 @@
     //    die(var_dump($candidates_data));
     $types = [];
     foreach ($raw_types as $raw_type) {
-        $types[$raw_type->id] = $raw_type;
+      $types[$raw_type->id] = $raw_type;
     }
     ob_start();
     ?>
+    
   <div class="multimedialpes-candidatures" data-rest-url="<?= get_rest_url() ?>">
       <div class="multimedialpes-candidatures-filters">
           <a href="#" class="multimedialpes_btn multimedialpes-filter-btn" data-filter="*">Tout</a>
-          <?php
-            foreach ($types as $type): ?>
-          <a href="#" class="multimedialpes_btn multimedialpes_btn-outline-web multimedialpes-filter-btn" data-filter='[data-type="<?= $type->id ?>"]'><?= $type->title ?></a>
+        <?php
+          foreach ($types as $type): ?>
+              <a href="#" class="multimedialpes_btn multimedialpes_btn-<?= $type->id ?> multimedialpes-filter-btn" data-filter='[data-type="<?= $type->id ?>"]'><?= $type->title ?></a>
           
           <?php endforeach; ?>
-<!--          <a href="#" class="multimedialpes_btn multimedialpes_btn-outline-graphisme multimedialpes-filter-btn" data-filter='[data-type="graphisme"]'>Graphisme</a>-->
-<!--          <a href="#" class="multimedialpes_btn multimedialpes_btn-outline-audiovisuel multimedialpes-filter-btn" data-filter='[data-type="audiovisuel"]'>Audiovisuel</a>-->
       </div>
       <div class="grid">
     
@@ -60,7 +59,7 @@
                       <h1 class="multimedialpes_card__heading"><?= the_title(); ?></h1>
                   </div>
                   <div class="multimedialpes_card__tags">
-                      <div class="multimedialpes_card__tag multimedialpes_card__tag--<?= strtolower($type->title); ?>"><?= $type->title ?></div>
+                      <div class="multimedialpes_card__tag multimedialpes_card__tag--<?= $type->id; ?>"><?= $type->title ?></div>
                   </div>
                   <p class="multimedialpes_card__description"><?= wp_trim_words(get_post_meta( get_the_ID(), 'candidat_description', true )) ?></p>
                   <div class="multimedialpes_card__footer">
@@ -72,7 +71,7 @@
                           <?php endforeach; ?>
                       </div>
                       <div class="multimedialpes_card_action">
-                          <a href="<?= the_permalink() ?>" class="multimedialpes_btn multimedialpes_btn-outline-<?= strtolower($type->title) ?> js-multimedialpes-view"><i class="fas fa-eye"></i> Voir</a>
+                          <a href="<?= the_permalink() ?>" class="multimedialpes_btn multimedialpes_btn-outline-<?= $type->id ?> js-multimedialpes-view"><i class="fas fa-eye"></i> Voir</a>
                       </div>
 
                   </div>
@@ -91,7 +90,7 @@
     
     <?php
     endif;
-    return ob_get_clean();
+    return $content . ob_get_clean();
   }
 
 ?>

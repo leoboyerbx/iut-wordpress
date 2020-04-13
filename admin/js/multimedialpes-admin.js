@@ -13,6 +13,7 @@
 			$('#candidat_type option').each(function () {
 				box_types.push(this.value)
 			})
+			console.log(box_types)
 
 			hide_all(box_types)
 			$('#candidat_details_' + $('#candidat_type').get(0).value).show()
@@ -21,7 +22,6 @@
 				hide_all(box_types)
 				$('#candidat_details_' + this.value).show()
 			})
-
 		}
 		$('.edit-type').each(function () {
 			const $button = $(this).find('button')

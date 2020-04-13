@@ -249,8 +249,8 @@
           'name' => 'Date de réalisation',
           'id'   => $prefix.'date',
           'type' => 'text_date',
+//          'date_format' => 'l j F Y',
         // 'timezone_meta_key' => 'wiki_test_timezone',
-          'date_format' => 'l j F Y',
       ) );
       $general_info->add_field( array(
           'name' => 'Image d\'illustration',
@@ -276,37 +276,37 @@
             'object_types'     => array( 'candidat' ),
             'priority'  => 'low',
         ) );
-        $prefix = $prefix . "details_{$type->id}_";
+        $localprefix = $prefix . "details_{$type->id}_";
         
         if ($type->media_type === 'video') {
           $new_box->add_field( array(
               'name'     => 'URL (YouTube, SoundCloud, ...)',
-              'id'       => $prefix . 'av_url',
+              'id'       => $localprefix . 'av_url',
               'type'     => 'oembed',
           ) );
           
           $new_box->add_field( array(
               'name'     => 'Catégorie',
-              'id'       => $prefix . 'av_categorie',
+              'id'       => $localprefix . 'av_categorie',
               'type'     => 'select',
               'options' => array(
-                  'reportage' => __('Reportage', 'cmb2'),
-                  'fiction' => __('Fiction', 'cmb2'),
-                  'motion-design' => __('Motion-design', 'cmb2'),
-                  'other' => __('Autre', 'cmb2'),
+                  'Reportage' => __('Reportage', 'cmb2'),
+                  'Fiction' => __('Fiction', 'cmb2'),
+                  'Motion Design' => __('Motion Design', 'cmb2'),
+                  'Autre' => __('Autre', 'cmb2'),
               ),
           ) );
         } else if ($type->media_type === 'web') {
           
           $new_box->add_field( array(
               'name'			   => 'URL du site',
-              'id'               => $prefix . 'web_url',
+              'id'               => $localprefix . 'web_url',
               'type'  		   => 'text_url',
           ) );
           
           $new_box->add_field( array(
               'name'			   => 'Type de site',
-              'id'               => $prefix . 'web_type',
+              'id'               => $localprefix . 'web_type',
               'type'  		   => 'select',
               'options' => array(
                   'portfolio' => __('Portfolio', 'cmb2'),
@@ -317,7 +317,7 @@
           ) );
           
           $new_box->add_field( array(
-              'id'               => $prefix . 'web_dynamique',
+              'id'               => $localprefix . 'web_dynamique',
               'type'  		   => 'radio_inline',
               'name'             => 'Le site est...',
               'options'          => array(
@@ -330,7 +330,7 @@
           $new_box->add_field( array(
               'name' => 'Image(s)',
               'desc' => 'La ou les images composant votre projet',
-              'id'   => $prefix.'graphisme_images',
+              'id'   => $localprefix.'graphisme_images',
               'type' => 'file_list',
             // 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
               'query_args' => array( 'type' => 'image' ), // Only images attachment
@@ -345,7 +345,7 @@
           ) );
           $new_box->add_field( array(
               'name' => 'Type de création',
-              'id'   => $prefix.'graphisme_type',
+              'id'   => $localprefix.'graphisme_type',
               'type'             => 'select',
               'show_option_none' => false,
               'default'          => 'custom',

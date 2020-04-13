@@ -18,7 +18,9 @@
 }
 
 .multimedialpes_card__hero {
-    flex: 0 0 45%
+    flex: 0 0 45%;
+    display: flex;
+    justify-content: center;
 }
 
 .multimedialpes_card__img {
@@ -76,15 +78,6 @@
 }
 .multimedialpes_card__tag:first-child {
     margin-left: 0;
-}
-
-.multimedialpes_card__tag--audiovisuel{background-color: #984bb2
-}
-.multimedialpes_card__tag--web{background-color: #6c90cd
-}
-.multimedialpes_card__tag--graphisme{background-color: #cd532e
-}
-.multimedialpes_card__tag--autre{background-color: #22cd5a
 }
 
 .multimedialpes_card__description{
