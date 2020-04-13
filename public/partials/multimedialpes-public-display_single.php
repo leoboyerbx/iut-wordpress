@@ -67,6 +67,9 @@
               <strong>Type de site: </strong><?= get_post_meta( get_the_ID(), "candidat_details_{$type->id}_web_type", true ) ?>
             </p>
             <p>
+              Le site est <?= get_post_meta( get_the_ID(), "candidat_details_{$type->id}_web_dynamique", true ) ?>
+            </p>
+            <p>
               <a href="<?= get_post_meta( get_the_ID(), "candidat_details_{$type->id}_web_url", true ) ?>" class="multimedialpes_btn  multimedialpes_btn-<?= $type->id ?>">Visiter le site</a>
             </p>
           <?php endif; ?>
