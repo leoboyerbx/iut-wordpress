@@ -50,6 +50,26 @@
               <strong>Catégorie: </strong><?= get_post_meta( get_the_ID(), "candidat_details_{$type->id}_av_categorie", true ) ?>
             </p>
           <?php endif; ?>
+          <?php if($type->media_type === 'graphics'): ?>
+            <h2>Images composant le projet</h2>
+            <p class="multimedialpes-project-imgs">
+              <?php
+                $images = get_post_meta(get_the_ID(), "candidat_details_{$type->id}_graphisme_images", true);
+                foreach ($images as $image):   ?>
+                  <a href="<?= $image ?>"><img src="<?= $image ?>" alt="Image du projet" class="multimedialpes-project-img"></a>
+                <?php endforeach; ?>
+            <p>
+              <strong>Type de création: </strong><?= get_post_meta( get_the_ID(), "candidat_details_{$type->id}_graphisme_type", true ) ?>
+            </p>
+          <?php endif; ?>
+          <?php if($type->media_type === 'web'): ?>
+            <p>
+              <strong>Type de site: </strong><?= get_post_meta( get_the_ID(), "candidat_details_{$type->id}_web_type", true ) ?>
+            </p>
+            <p>
+              <a href="<?= get_post_meta( get_the_ID(), "candidat_details_{$type->id}_web_url", true ) ?>" class="multimedialpes_btn  multimedialpes_btn-<?= $type->id ?>">Visiter le site</a>
+            </p>
+          <?php endif; ?>
         </div>
         <div class="multimedialpes_card__footer">
           <div class="multimedialpes_card__details">
